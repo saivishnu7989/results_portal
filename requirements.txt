@@ -5,5 +5,3 @@ psycopg2-binary
 django-simple-captcha
 weasyprint
 pandas
-random
-string
