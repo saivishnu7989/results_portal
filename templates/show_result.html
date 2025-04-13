@@ -1,0 +1,27 @@
+<h2>Result for {{ student.roll_number }}</h2>
+<p>Branch: {{ student.branch }}</p>
+<p>Semester: {{ semester.name }}</p>
+
+<table border="1">
+    <tr>
+        <th>Subject Code</th>
+        <th>Subject Name</th>
+        <th>Grade</th>
+        <th>Credits</th>
+    </tr>
+    {% for res in results %}
+    <tr>
+        <td>{{ res.subject.code }}</td>
+        <td>{{ res.subject.name }}</td>
+        <td>{{ res.grade }}</td>
+        <td>{{ res.credits }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<p><strong>Total Credits: {{ total_credits }}</strong></p>
+
+<a href="{% url 'download_pdf' student.roll_number semester.name %}">
+    <button type="button">Download PDF</button>
+</a>
+

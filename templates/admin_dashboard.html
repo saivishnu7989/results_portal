@@ -1,0 +1,11 @@
+<!-- templates/admin_dashboard.html -->
+<h1>Admin Dashboard</h1>
+
+<ul>
+  <li><a href="{% url 'upload_results' %}">📤 Upload Results</a></li>
+  <li><a href="{% url 'check_result' %}">🔍 Search Student Results</a></li>
+  <li><a href="/admin/results/student/">🗂 View All Students</a></li>
+  <li><a href="/admin/results/result/">🧾 View/Edit Results</a></li>
+  <li><a href="{% url 'reset_password' %}">🔑 Forgot Password</a></li>
+  <li><a href="{% url 'logout' %}">🚪 Logout</a></li>
+</ul>

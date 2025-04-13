@@ -1,0 +1,110 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="{% static '01Logo-Medium (1).png' %}">
+    <title>Kits Results-Portal</title>
+    <link rel="stylesheet" href="{% static 'css/check_result.css' %}">
+    <script>
+        function refreshCaptcha() {
+            fetch(window.location.href)
+                .then(() => location.reload());
+        }
+    </script>
+</head>
+<body>
+    <!-- Navbar -->
+    <header class="site-header">
+        <div class="logo-section">
+            <img src="{% static 'C:\Users\saivi\2025\project\btechresults\static\img\01Logo-Medium.png' %}" alt="JNTUK Logo">
+            <div class="title">
+                <h1>KITS</h1>
+                <p>Krishna Chaitanya Institue Of Technology and Sciences, Devarajugattu</p>
+                <p>Effective People Effective Culture</p>
+            </div>
+        </div>
+        
+    </header>
+    <div class="nav-container">
+        <h1 class="logo">Result Portal</h1>
+        <nav class="navbar">
+            <a href="{% url 'index' %}" class="nav-link">Home</a>
+        </nav>
+    </div>
+
+    <!-- Main container -->
+    <div class="container">
+        <h2 class="page-title">Check Results for {{ semester.name }}</h2>
+
+        <form method="post" class="result-form">
+            {% csrf_token %}
+            <label for="roll_number">Roll Number:</label>
+            <input type="text" name="roll_number" required placeholder="Enter your Roll Number">
+
+            <label for="captcha_input">Enter Captcha:</label>
+            <div class="captcha-box">
+                <span class="captcha-text">{{ form.captcha }}</span>
+                <button type="button" class="refresh-btn" onclick="refreshCaptcha()">🔁</button>
+            </div>
+            
+            
+
+            <button type="submit">Submit</button>
+        </form>
+
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% endif %}
+
+        {% if student and results %}
+            <div class="student-info">
+                <h3>Student Details</h3>
+                <p><strong>Name:</strong> {{ student.name }}</p>
+                <p><strong>Roll Number:</strong> {{ student.roll_number }}</p>
+                <p><strong>Branch:</strong> {{ student.branch }}</p>
+            </div>
+
+            <div class="results-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sub Code</th>
+                            <th>Sub Name</th>
+                            <th>Internal Marks</th>
+                            <th>Grade</th>
+                            <th>Credits</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for result in results %}
+                            <tr>
+                                <td>{{ result.subject.code }}</td>
+                                <td>{{ result.subject.name }}</td>
+                                <td>{{ result.internal_marks }}</td>
+                                <td>{{ result.grade }}</td>
+                                <td>{{ result.credits }}</td>
+                            </tr>
+                        {% endfor %}
+                        <tr class="total-row">
+                            <td colspan="4"><strong>Total Credits</strong></td>
+                            <td><strong>{{ total_credits }}</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="download-btn">
+                <a href="{% url 'download_pdf' student.roll_number semester.id %}" target="_blank">Download PDF</a>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Result Portal | <a href="#">About Us</a> | <a href="#">Contact</a></p>
+        </div>
+    </footer>
+</body>
+</html>

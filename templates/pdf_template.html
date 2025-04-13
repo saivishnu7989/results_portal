@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{{ student.roll_number }} - {{ semester.name }} Result</title>
+</head>
+<body>
+    <h2>Student Result</h2>
+    <p><strong>Roll Number:</strong> {{ student.roll_number }}</p>
+    <p><strong>Semester:</strong> {{ semester.name }}</p>
+
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>Subject Code</th>
+            <th>Subject Name</th>
+            <th>Grade</th>
+            <th>Credits</th>
+        </tr>
+        {% for r in results %}
+        <tr>
+            <td>{{ r.subject.code }}</td>
+            <td>{{ r.subject.name }}</td>
+            <td>{{ r.grade }}</td>
+            <td>{{ r.credits }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
