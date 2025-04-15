@@ -5,3 +5,4 @@ psycopg2-binary
 django-simple-captcha
 weasyprint
 pandas
+openpyxl
